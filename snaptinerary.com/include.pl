@@ -65,14 +65,14 @@ return "
 
 
 sub print_logo {
-    print "<div class='railinator'>Railinator</div>";
+    print "<div class='snaptinerary'>Snaptinerary</div>";
 }
 
 sub print_navbar {
     my ($uid) = @_;
     print "<div class='navbar'><ul>";
     print "<li><a href='/index.pl'>Main</a></li>";
-    print "<li><a href='/features.pl'>Features</a></li>";
+#    print "<li><a href='/features.pl'>Features</a></li>";
     if (defined $uid and "$uid" ne "-1") {
 #        print "<li><a href='/logout.pl'>Logout</a></li>";
     } else {
@@ -110,7 +110,7 @@ sub print_start {
 <script type='text/javascript'>//<![CDATA[
  
   var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-25864870-1']);
+  _gaq.push(['_setAccount', 'UA-26731006-1']);
   _gaq.push(['_trackPageview']);
  
   (function() {
@@ -135,10 +135,9 @@ sub print_footer {
 print "
 <div class='footerstyle1' style='font-size: 14px;'>
 <a href='/index.pl'>Main</a>
-<a href='/features.pl'>Features</a>
 <br />
 <br />
-Copyright&copy; 2011 Timmy Douglas. All Rights Reserved.
+Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
 </div>
 ";
     } else {
@@ -147,7 +146,7 @@ print "
 <a href='/index.pl'>Main</a>
 <br />
 <br />
-Copyright&copy; 2011 Timmy Douglas. All Rights Reserved.
+Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
 </div>
 ";
     }
