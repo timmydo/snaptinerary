@@ -9,9 +9,9 @@ require "./include.pl";
 #require "./include/mainbar.pl";
 
 my $q = CGI->new;
-#my $dbh = db_connect();
-#my ($sid, $uid, $displayname) = check_session($q, $dbh);
-my $uid = -1;
+my $dbh = db_connect();
+my ($sid, $uid, $displayname) = check_session($q, $dbh);
+
 
 print_start($q, "Snaptinerary Start Page");
 print_top($uid);
@@ -28,5 +28,5 @@ print_footer($uid);
 print $q->end_html;
 
 
-#$dbh->rollback;
-#$dbh->disconnect;
+$dbh->rollback;
+$dbh->disconnect;

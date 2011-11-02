@@ -1,14 +1,16 @@
 #!/usr/bin/perl -wT
 
 use strict;
+use DBI;
+
+sub db_connect {
+    return DBI->connect("DBI:Pg:dbname=snaptinerary;port=5432", undef, undef, {RaiseError => 1, AutoCommit => 0});
+}
 
 sub check_session {
     my ($q, $dbh) = @_;
     my $sid = $q->cookie('sid');
-    my $remoteAddr = $ENV{'REMOTE_ADDR'};
- #   my $sth = $dbh->prepare("SELECT users.uid,displayname FROM sessions JOIN users ON users.uid = sessions.uid WHERE cookie = ? AND ip = ?;");
-#    $sth->execute($sid, $remoteAddr);
-   my $sth = $dbh->prepare("SELECT users.uid,displayname FROM sessions JOIN users ON users.uid = sessions.uid WHERE cookie = ?;");
+    my $sth = $dbh->prepare("SELECT users.uid,displayname FROM sessions JOIN users ON users.uid = sessions.uid WHERE cookie = ?");
     $sth->execute($sid);
     
     my $uid = -1;
