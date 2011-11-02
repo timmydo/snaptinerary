@@ -101,10 +101,9 @@ sub print_start {
 <html> 
 <head> 
 <meta charset='UTF-8'> 
-<title>Railinator.com: $desc</title> 
-<meta name='keywords' content='train, rail, railroad, schedule, android, app, offline, trip planner, software, railinator'> 
+<title>Snaptinerary.com: $desc</title> 
+<meta name='keywords' content='itinerary, itinerary creator, itinerary maker, trip planner'> 
 <meta name='author' content='Timmy Douglas'> 
-<meta name='google-site-verification' content='LRqH-_fA05y7iJUD5sQ6b3o8nXmzy8vh7TykaUyWr_c'> 
 <meta name='description' content='$desc' /> 
 <link rel='stylesheet' type='text/css' href='/css/style.css' /> 
 <script type='text/javascript'>//<![CDATA[
