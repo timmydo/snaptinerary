@@ -73,7 +73,7 @@ sub print_logo {
 sub print_navbar {
     my ($uid) = @_;
     print "<div class='navbar'><ul>";
-    print "<li><a href='/index.pl'>Main</a></li>";
+    print "<li><a href='/index.pl'>Start</a></li>";
 #    print "<li><a href='/features.pl'>Features</a></li>";
     if (defined $uid and "$uid" ne "-1") {
 #        print "<li><a href='/logout.pl'>Logout</a></li>";
@@ -96,7 +96,7 @@ sub print_start {
 
     my ($q,$desc) = @_;
     if (!defined $desc) {
-        $desc = 'Offline train tools for Android';
+        $desc = 'Snaptinerary quick itinerary planner';
     }
     print $q->header(-type=>'text/html', -charset=>'utf-8');
     print "<!DOCTYPE html> 
@@ -108,6 +108,8 @@ sub print_start {
 <meta name='author' content='Timmy Douglas'> 
 <meta name='description' content='$desc' /> 
 <link rel='stylesheet' type='text/css' href='/css/style.css' /> 
+<script src ='/jquery-1.6.4.min.js' type='text/javascript' />
+
 <script type='text/javascript'>//<![CDATA[
  
   var _gaq = _gaq || [];
@@ -135,7 +137,7 @@ sub print_footer {
     if ($uid == -1) {
 print "
 <div class='footerstyle1' style='font-size: 14px;'>
-<a href='/index.pl'>Main</a>
+<a href='/index.pl'>Start</a>
 <br />
 <br />
 Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
@@ -144,7 +146,7 @@ Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
     } else {
 print "
 <div class='footerstyle1' style='font-size: 14px;'>
-<a href='/index.pl'>Main</a>
+<a href='/index.pl'>Start</a>
 <br />
 <br />
 Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
