@@ -36,6 +36,18 @@ function describeValue(id, value)
     }
     document.getElementById(id).innerHTML=str;
 }
+
+function describePeople(id, value)
+{
+    str = "error";
+    switch (value) {
+        case "1": str = "Just me"; break;
+      default: str = value + " people"; break;
+
+    }
+    document.getElementById(id).innerHTML=str;
+}
+
 </script>
 ';
 
@@ -46,6 +58,7 @@ print "<h1 class='center'>Plan your trip</h1>
 
 
 print "<form name='plan-form' class='formclass1' method='post' action='/plan.pl'>
+<div style='overflow: auto'>
 <div class='inputwrap'>
     <label for='location_input' id='location_label'>Destination</label>
 
@@ -58,7 +71,13 @@ print "<form name='plan-form' class='formclass1' method='post' action='/plan.pl'
  <input type='text' id='date_input' name='dates'
 onfocus=\"handleKey('date_label', 'date_input')\" />
 </div>
-<br />
+</div>
+
+
+<div class='center'>
+Guests: <input type='range' name='numpeople' min='1' max='8' step='1' value='1' onchange=\"describePeople('people_detail', this.value)\"/><span id='people_detail' style='position: absolute'>Just me</span>
+</div>
+
 
 <div class='center'>
 Lodging: <input type='range' name='lodging' min='1' max='4' step='1' value='2' onchange=\"describeValue('lodging_detail', this.value)\"/><span id='lodging_detail' style='position: absolute'>Budget option</span>
