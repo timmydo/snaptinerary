@@ -4,7 +4,7 @@ use strict;
 use DBI;
 
 sub db_connect {
-    return DBI->connect("DBI:Pg:dbname=snaptinerary;port=5432", undef, undef, {RaiseError => 1, AutoCommit => 0});
+    return DBI->connect("DBI:Pg:dbname=snaptinerary;port=5433", undef, undef, {RaiseError => 1, AutoCommit => 0});
 }
 
 sub check_session {
