@@ -24,14 +24,40 @@ function handleKey(label, input) {
 
 }
 
-function describeValue(id, value)
+function describeLodging(id, value)
 {
     str = "error";
     switch (value) {
-        case "1": str = "Cheapest option"; break;
-        case "2": str = "Budget option"; break;
-        case "3": str = "Good option"; break;
-        case "4": str = "Luxury option"; break;
+        case "1": str = "Cheapest room"; break;
+        case "2": str = "Budget room"; break;
+        case "3": str = "Good room"; break;
+        case "4": str = "Luxury room"; break;
+      default: break;
+    }
+    document.getElementById(id).innerHTML=str;
+}
+
+function describeFood(id, value)
+{
+    str = "error";
+    switch (value) {
+        case "1": str = "Cheap food"; break;
+        case "2": str = "Food on a budget"; break;
+        case "3": str = "Eating good"; break;
+        case "4": str = "Splurge on food"; break;
+      default: break;
+    }
+    document.getElementById(id).innerHTML=str;
+}
+
+function describeEvents(id, value)
+{
+    str = "error";
+    switch (value) {
+        case "1": str = "Cheap sightseeing"; break;
+        case "2": str = "Budget sightseeing"; break;
+        case "3": str = "Willing to pay for events"; break;
+        case "4": str = "Splurge on events"; break;
       default: break;
     }
     document.getElementById(id).innerHTML=str;
@@ -48,7 +74,7 @@ function describePeople(id, value)
     document.getElementById(id).innerHTML=str;
 }
 
-</script>
+//]]></script>
 ';
 
 
@@ -57,46 +83,72 @@ print "<h1 class='center'>Plan your trip</h1>
 <h5 class='center'>Millions of ideas--just one click away</h5>";
 
 
-print "<form name='plan-form' class='formclass1' method='post' action='/plan.pl'>
-<div style='overflow: auto'>
+print "
+
+
+
+<form name='plan-form' class='formclass1' method='post' action='/plan.pl'>
+
+
+<div class='center'>
 <div class='inputwrap'>
     <label for='location_input' id='location_label'>Destination</label>
-
 <input type='text' id='location_input' name='email'
- onfocus=\"handleKey('location_label', 'location_input')\"/></div>
-<br />
+ onfocus=\"handleKey('location_label', 'location_input')\"/>
+</div>
+</div>
 
+<div class='center'>
 <div class='inputwrap'>
-    <label for='date_input' id='date_label'>11/20 to 11/25</label>
- <input type='text' id='date_input' name='dates'
-onfocus=\"handleKey('date_label', 'date_input')\" />
+<label for='startdate' id='date_label1'>Check-in</label>
+<input type='date' name='startdate' onfocus=\"handleKey('date_label1', 'startdate')\" />
 </div>
+</div>
+
+<div class='center'>
+<div class='inputwrap'>
+<label for='enddate' id='date_label2'>Check-out</label>
+<input type='date' name='enddate' onfocus=\"handleKey('date_label2', 'enddate')\" />
+</div>
+</div>
+
+<div class='center'>
+<div id='people_detail'>Just me</div>
+<input type='range' name='numpeople' min='1' max='8' step='1' value='1' onchange=\"describePeople('people_detail', this.value)\"/>
 </div>
 
 
 <div class='center'>
-Guests: <input type='range' name='numpeople' min='1' max='8' step='1' value='1' onchange=\"describePeople('people_detail', this.value)\"/><span id='people_detail' style='position: absolute'>Just me</span>
-</div>
-
-
-<div class='center'>
-Lodging: <input type='range' name='lodging' min='1' max='4' step='1' value='2' onchange=\"describeValue('lodging_detail', this.value)\"/><span id='lodging_detail' style='position: absolute'>Budget option</span>
+<div id='lodging_detail'>Cheapest room</div>
+<input type='range' name='lodging' min='1' max='4' step='1' value='1' onchange=\"describeLodging('lodging_detail', this.value)\"/>
 </div>
 
 <div class='center'>
-Food: <input type='range' name='food' min='1' max='4' step='1' value='2' onchange=\"describeValue('food_detail', this.value)\"/><span id='food_detail' style='position: absolute'>Budget option</span>
+<div id='food_detail'>Food on a budget</div>
+<input type='range' name='food' min='1' max='4' step='1' value='2' onchange=\"describeFood('food_detail', this.value)\"/>
 </div>
 
 <div class='center'>
-Sightseeing/Events: <input type='range' name='events' min='1' max='4' step='1' value='3' onchange=\"describeValue('events_detail', this.value)\"/><span id='events_detail' style='position: absolute'>Good option</span>
+<div id='events_detail'>Willing to pay for events</div>
+<input type='range' name='events' min='1' max='4' step='1' value='3' onchange=\"describeEvents('events_detail', this.value)\"/>
 </div>
+
 
 <button type='submit' name='submit'>Search</button>
 </form>
 ";
 
 
+
 print "</div>";
+
+print '
+<script>
+$(":range").rangeinput();
+$(":date").dateinput();
+</script>
+';
+
 
 print_footer($uid);
 

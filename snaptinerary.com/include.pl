@@ -108,7 +108,9 @@ sub print_start {
 <meta name='author' content='Timmy Douglas'> 
 <meta name='description' content='$desc' /> 
 <link rel='stylesheet' type='text/css' href='/css/style.css' /> 
-<script src ='/jquery-1.6.4.min.js' type='text/javascript' />
+<link rel='stylesheet' type='text/css' href='/css/date.css' /> 
+<script src='/jquery-1.6.4.min.js' type='text/javascript'></script>
+<script src='/jquery.tools.min.js' type='text/javascript'></script>
 
 <script type='text/javascript'>//<![CDATA[
  
