@@ -63,6 +63,19 @@ function describeEvents(id, value)
     document.getElementById(id).innerHTML=str;
 }
 
+function describeSchedule(id, value)
+{
+    str = "error";
+    switch (value) {
+        case "1": str = "Relax, we have all day!"; break;
+        case "2": str = "Regular schedule"; break;
+        case "3": str = "Jam-packed! Always moving!"; break;
+      default: break;
+    }
+    document.getElementById(id).innerHTML=str;
+}
+
+
 function describePeople(id, value)
 {
     str = "error";
@@ -131,6 +144,11 @@ print "
 <div class='center'>
 <div id='events_detail'>Willing to pay for events</div>
 <input type='range' name='events' min='1' max='4' step='1' value='3' onchange=\"describeEvents('events_detail', this.value)\"/>
+</div>
+
+<div class='center'>
+<div id='schedule_detail'>Regular schedule</div>
+<input type='range' name='schedule' min='1' max='3' step='1' value='2' onchange=\"describeSchedule('schedule_detail', this.value)\"/>
 </div>
 
 
