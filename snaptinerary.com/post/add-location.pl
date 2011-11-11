@@ -18,6 +18,8 @@ my $type = $q->param('type');
 my $price = $q->param('price');
 my $lat = $q->param('lat');
 my $long = $q->param('long');
+my $phone = $q->param('phone');
+my $website = $q->param('website');
 
 
 if ($uid == -1) {
@@ -35,6 +37,7 @@ if ($status < 100) {
 }
 
 if (!defined $name or !defined $address or !defined $type or !defined $price or !defined $lat or !defined $lat
+    or !defined $phone or !defined $website
     or ($lat eq '') or ($long eq '') or ($name eq '')) {
     print $q->header();
     print $q->start_html();
@@ -45,10 +48,12 @@ if (!defined $name or !defined $address or !defined $type or !defined $price or 
 
 $address = encode_html($address);
 $name = encode_html($name);
+$phone = encode_html($phone);
+$website = encode_html($website);
 
 
-my $sth = $dbh->prepare('INSERT INTO locations(uid,lat,long,name,address,creation,type,price) VALUES (?,?,?,?,?,current_timestamp,?,?);');
-$sth->execute($uid, $lat, $long, $name, $address, $type, $price);
+my $sth = $dbh->prepare('INSERT INTO locations(uid,lat,long,name,address,creation,type,price,phone,website) VALUES (?,?,?,?,?,current_timestamp,?,?,?,?);');
+$sth->execute($uid, $lat, $long, $name, $address, $type, $price, $phone, $website);
 $sth->finish;
 
 

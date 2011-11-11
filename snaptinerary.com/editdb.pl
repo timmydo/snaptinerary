@@ -76,6 +76,16 @@ print "
 <td><input type='text' name='long' /></td>
 </tr>
 
+<tr>
+<td>Phone (optional, digits only)</td>
+<td><input type='text' name='phone' /></td>
+</tr>
+
+<tr>
+<td>Website (optional)</td>
+<td><input type='text' name='website' /></td>
+</tr>
+
 
 </table>
 <button type='submit' name='submit'>Add Location</button>
@@ -88,20 +98,21 @@ print "</div>";
 
 print "<div class='maincontent'>";
 print "<h1 class='center'>DB Contents</h1>";
-my $sth = $dbh->prepare("SELECT lid,users.displayname,lat,long,name,address,type,price FROM locations INNER JOIN users on users.uid = locations.uid");
+my $sth = $dbh->prepare("SELECT lid,users.displayname,lat,long,name,address,type,price,phone,website FROM locations INNER JOIN users on users.uid = locations.uid");
 $sth->execute();
 
 print "<table border='1'>";
 print "<thead>
 <th>Location ID</th><th>User</th><th>Latitude</th><th>Longitude</th><th>Name</th>
-<th>Address</th><th>Type</th><th>Price</th>
+<th>Address</th><th>Type</th><th>Price</th><th>Phone</th><th>Website</th>
 </thead>";
 print "<tbody>";
 while (my @row = $sth->fetchrow_array()) {
-    my ($lid,$displayname,$lat,$long,$name,$address,$type,$price) = @row;
+    my ($lid,$displayname,$lat,$long,$name,$address,$type,$price,$phone,$website) = @row;
     print "<tr>
 <td>$lid</td><td>$displayname</td><td>$lat</td><td>$long</td><td>$name</td>
 <td>$address</td><td>$type</td><td>$price</td>
+<td>$phone</td><td>$website</td>
 </tr>";
 }
 
