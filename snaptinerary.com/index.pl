@@ -125,33 +125,37 @@ print "
 </div>
 </div>
 
+<br/><br/>
 <div class='center'>
 <div id='people_detail'>Just me</div>
 <input type='range' name='numpeople' min='1' max='8' step='1' value='1' onchange=\"describePeople('people_detail', this.value)\"/>
 </div>
 
-
+<br/><br/>
 <div class='center'>
 <div id='lodging_detail'>Cheapest room</div>
 <input type='range' name='lodging' min='1' max='4' step='1' value='1' onchange=\"describeLodging('lodging_detail', this.value)\"/>
 </div>
 
+<br/><br/>
 <div class='center'>
 <div id='food_detail'>Food on a budget</div>
 <input type='range' name='food' min='1' max='4' step='1' value='2' onchange=\"describeFood('food_detail', this.value)\"/>
 </div>
 
+<br/><br/>
 <div class='center'>
 <div id='events_detail'>Willing to pay for events</div>
 <input type='range' name='events' min='1' max='4' step='1' value='3' onchange=\"describeEvents('events_detail', this.value)\"/>
 </div>
 
+<br/><br/>
 <div class='center'>
 <div id='schedule_detail'>Regular schedule</div>
 <input type='range' name='schedule' min='1' max='3' step='1' value='2' onchange=\"describeSchedule('schedule_detail', this.value)\"/>
 </div>
 
-
+<br/><br/>
 <button type='submit' name='submit'>Search</button>
 </form>
 ";
