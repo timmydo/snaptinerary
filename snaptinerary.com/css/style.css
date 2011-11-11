@@ -52,7 +52,7 @@ background-color: #fff;
     margin-right: auto;
 //    width: 70%;
     text-align: center;
-    overflow: auto;
+//    overflow: visible;
 }
 
 img.center {
@@ -156,7 +156,7 @@ left: 0;
 //    width: 600px;
     height: 100px;
     display: block;
-    overflow: auto;
+//    overflow: auto;
     margin-left: auto;
     margin-right: auto;
     padding: 10px 10px 10px 10px;
@@ -165,7 +165,7 @@ left: 0;
 
 .formclass2 {
     display: block;
-    overflow: auto;
+//    overflow: auto;
     margin-left: auto;
     margin-right: auto;
     padding: 10px 10px 10px 10px;
@@ -174,7 +174,7 @@ left: 0;
 
 .blockstyle {
     display: block;
-    overflow: auto;
+//    overflow: auto;
     margin-left: auto;
     margin-right: auto;
 }
