@@ -112,20 +112,20 @@ print "
 </div>
 
 <div class='center'>
+
 <div class='inputwrap'>
 <label for='startdate' id='date_label1'>Check-in</label>
 <input type='date' name='startdate' onfocus=\"handleKey('date_label1', 'startdate')\" />
 </div>
-</div>
 
-<div class='center'>
 <div class='inputwrap'>
 <label for='enddate' id='date_label2'>Check-out</label>
 <input type='date' name='enddate' onfocus=\"handleKey('date_label2', 'enddate')\" />
 </div>
+
 </div>
 
-<br/><br/>
+
 <div class='center'>
 <div id='people_detail'>Just me</div>
 <input type='range' name='numpeople' min='1' max='8' step='1' value='1' onchange=\"describePeople('people_detail', this.value)\"/>
