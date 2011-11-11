@@ -10,7 +10,7 @@ require "./include.pl";
 
 my $q = CGI->new;
 my $dbh = db_connect();
-my ($sid, $uid, $displayname) = check_session($q, $dbh);
+my ($sid, $uid, $displayname, $status) = check_session($q, $dbh);
 
 
 print_start($q, "Snaptinerary Start Page");
@@ -168,7 +168,7 @@ $(":date").dateinput();
 ';
 
 
-print_footer($uid);
+print_footer($uid, $status);
 
 #like_bar();
 

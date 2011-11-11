@@ -2,6 +2,7 @@
 
 use strict;
 use DBI;
+use HTML::Entities;
 
 sub db_connect {
     return DBI->connect("DBI:Pg:dbname=snaptinerary;port=5433", undef, undef, {RaiseError => 1, AutoCommit => 0});
@@ -10,19 +11,20 @@ sub db_connect {
 sub check_session {
     my ($q, $dbh) = @_;
     my $sid = $q->cookie('sid');
-    my $sth = $dbh->prepare("SELECT users.uid,displayname FROM sessions JOIN users ON users.uid = sessions.uid WHERE cookie = ?");
+    my $sth = $dbh->prepare("SELECT users.uid,displayname,users.status FROM sessions JOIN users ON users.uid = sessions.uid WHERE cookie = ?");
     $sth->execute($sid);
     
     my $uid = -1;
     my $displayname = '';
+    my $status = 0;
 
     if (my @row = $sth->fetchrow_array()) {
-        ($uid, $displayname) = @row;
+        ($uid, $displayname, $status) = @row;
     } 
 
     $sth->finish;
 
-    return ($sid, $uid, $displayname);
+    return ($sid, $uid, $displayname, $status);
 }
 
 
@@ -76,9 +78,9 @@ sub print_navbar {
     print "<li><a href='/index.pl'>Start</a></li>";
 #    print "<li><a href='/features.pl'>Features</a></li>";
     if (defined $uid and "$uid" ne "-1") {
-#        print "<li><a href='/logout.pl'>Logout</a></li>";
+        print "<li><a href='/post/logout.pl'>Logout</a></li>";
     } else {
-#        print "<li><a href='/'>Login</a></li>";
+        print "<li><a href='/loginform.pl'>Login</a></li>";
     }
     print "</ul></div><br />";
 }
@@ -135,11 +137,12 @@ sub print_start {
 
 sub print_footer {
 
-    my ($uid) = @_;
+    my ($uid,$status) = @_;
     if ($uid == -1) {
 print "
 <div class='footerstyle1' style='font-size: 14px;'>
 <a href='/index.pl'>Start</a>
+<a href='/loginform.pl'>Login</a>
 <br />
 <br />
 Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
@@ -148,7 +151,13 @@ Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
     } else {
 print "
 <div class='footerstyle1' style='font-size: 14px;'>
-<a href='/index.pl'>Start</a>
+<a href='/index.pl'>Start</a>";
+
+if ($status >= 100) {
+    print "<a href='/editdb.pl'>Edit DB</a>";
+}
+
+print "<a href='/post/logout.pl'>Logout</a>
 <br />
 <br />
 Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
@@ -158,6 +167,24 @@ Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
 
 
 }
+
+sub encode_html {
+    my ($s) = @_;
+    $s = encode_entities($s);
+    $s =~ s/&amp;(#\d+;)/&$1/g;
+    return $s;
+}
+
+sub generate_random_string 
+{
+    my $passwordsize = shift;
+    my @alphanumeric = ('a'..'z', 'A'..'Z', 0..9);
+    my $randpassword = join '', 
+           map $alphanumeric[rand @alphanumeric], 0..$passwordsize;
+
+    return $randpassword;
+}
+
 
 return 1;
 
