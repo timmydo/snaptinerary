@@ -17,7 +17,7 @@ table,th,td {
  }
 
 th {
-    background-color: #618bf6;
+    background-color: #FF6103;
     color: white;
     text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3);
     font-family: Arial,'Helvetica Neue',Helvetica,sans-serif;
@@ -90,7 +90,7 @@ display:block;
 {
 display:block;
 font-weight:bold;
-color:#101070;
+color:#FF6103;
 //background-color:#618bf6;
 /*width:160px;*/
 text-align:center;
@@ -101,7 +101,8 @@ text-decoration:none;
 
 .navbar a:hover,.navbar a:active
 {
-background-color:#94aff3;
+//background-color:#94aff3;
+background-color: #FF6103;
 color:#eee;
 }
 
@@ -114,7 +115,7 @@ background: url('/img/inputtest.png') 0 11px no-repeat;
 border-width: 0;
 #margin: 0 0 0 -13px;
 margin: 0 0 0 0px;
-float: left;
+//float: left;
 position: relative;
 z-index: 1;
 }
@@ -221,7 +222,8 @@ left: 0;
 
 .footerstyle1 {
     //background-color: #586aef;
-    background-color: #0062b3;
+//    background-color: #0062b3;
+background-color: #FF6103;
     right: 0px;
     left: 0px;
     color: #D7DEE6;
@@ -252,7 +254,7 @@ cursor: pointer;
 
 
 .footerstyle1 a:hover {
-color: #B7BEC6;
+color: #000000;
 text-decoration: none;
 margin: 0 0 0 30px;
 cursor: pointer;
@@ -269,6 +271,7 @@ z-index: 3;
 margin-left: auto;
 margin-right: auto;
 display: block;
+color: #FF6103;
 background-color: #fff;
 }
 
@@ -279,7 +282,7 @@ font-size: 17px;
 font-weight: bold;
 font-family: Arial,'Helvetica Neue',Helvetica,sans-serif;
 text-shadow: 0 1px 1px rgba(255, 255, 255, 0.37);
-background: #8888DD;
+background: #FF6103;
 border: 1px solid #000000;
 -moz-border-radius: 6px;
 -webkit-border-radius: 6px;
@@ -326,7 +329,7 @@ border: 1px solid #000000;
 
 /* slider root element */
 .slider { 
-	background:#3C72E6 url(/img/h30.png) repeat-x 0 0; 
+	background: #FF6103 url(/img/h30.png) repeat-x 0 0; 
 	height:9px; 
 	position:relative; 
 	cursor:pointer;
@@ -343,7 +346,7 @@ border: 1px solid #000000;
 /* progress bar (enabled with progress: true) */
 .progress {
 	height:9px; 
-	background-color:#C5FF00; 
+	background-color: #FF6103; 
 	display:none;
 	opacity:0.6;
 }
