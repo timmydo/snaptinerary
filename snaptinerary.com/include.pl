@@ -178,7 +178,7 @@ Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
 
 sub encode_html {
     my ($s) = @_;
-    $s = encode_entities($s);
+    $s = encode_entities($s, '"&<>');
     $s =~ s/&amp;(#\d+;)/&$1/g;
     return $s;
 }
