@@ -27,6 +27,14 @@ sub check_session {
     return ($sid, $uid, $displayname, $status);
 }
 
+sub form_error {
+    my ($q, $str) = @_;
+    print $q->header();
+    print $q->start_html();
+    print $q->h1("$str");
+    print $q->end_html;
+    exit;
+}
 
 sub like_bar {
 print "<div class='maincontent'>

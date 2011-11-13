@@ -24,20 +24,12 @@ my $displayname = $q->param('displayname');
 
 
 if (!defined $email or !defined $password or !defined $displayname or !defined $verifypassword) {
-    print $q->header();
-    print $q->start_html();
-    print $q->h1("email,password and display name required");
-    print $q->end_html;
-    exit;
+    form_error($q, "email,password and display name required");
 }
 
 
 if ($verifypassword ne $password) {
-    print $q->header();
-    print $q->start_html();
-    print $q->h1("passwords didn't match");
-    print $q->end_html;
-    exit;
+    form_error($q, "passwords didn't match");
 }
 
 #private key
