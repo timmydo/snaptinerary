@@ -193,6 +193,43 @@ sub generate_random_string
     return $randpassword;
 }
 
+sub get_tags {
+    my ($dbh, $lid) = @_;
+    my $sth = $dbh->prepare("SELECT tagged.index,tagged.tagid,tags.tag FROM tagged INNER JOIN tags ON tagged.tagid = tags.tid WHERE lid = ?");
+    $sth->execute($lid);
+    my @arr = ();
+    
+    while (my @row = $sth->fetchrow_array()) {
+        push @arr, @row;
+    }
+    $sth->finish;
+
+    return @arr;
+}
+
+sub add_tag {
+    my ($dbh, $tag) = @_;
+    my $tid = undef;
+
+    my $sth = $dbh->prepare("SELECT tid FROM tags WHERE tag = ?");
+    $sth->execute($tag);
+
+    if (my @row = $sth->fetchrow_array()) {
+        ($tid) = @row; 
+    }
+    $sth->finish;
+
+    if (!defined $tid) {
+
+        $sth = $dbh->prepare("INSERT INTO tags(tag) VALUES (?)");
+        $sth->execute($tag);
+        $sth->finish;
+        return add_tag($dbh, $tag);
+    }
+
+    return $tid;
+}
+
 
 return 1;
 

@@ -21,6 +21,7 @@ my $long = $q->param('long');
 my $phone = $q->param('phone');
 my $website = $q->param('website');
 my $lid = $q->param('lid');
+my $tags = $q->param('tags');
 
 
 if ($uid == -1) {
@@ -51,11 +52,22 @@ $address = encode_html($address);
 $name = encode_html($name);
 $phone = encode_html($phone);
 $website = encode_html($website);
-
+$tags = encode_html($tags);
 
 my $sth = $dbh->prepare('UPDATE locations SET lat=?,long=?,name=?,address=?,type=?,price=?,phone=?,website=? WHERE lid = ?');
 $sth->execute($lat, $long, $name, $address, $type, $price, $phone, $website, $lid);
 $sth->finish;
+
+
+$tags =~ s/\s+//g;
+my @newtags = split(/,/, $tags);
+while (my $newtag = shift @newtags) {
+    my $tagid = add_tag($dbh, $newtag);
+    $sth = $dbh->prepare('INSERT INTO tagged(tagid,lid) VALUES (?,?)');
+    $sth->execute($tagid, $lid);
+    $sth->finish;
+
+}
 
 
 $dbh->commit;

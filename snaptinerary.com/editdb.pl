@@ -125,7 +125,7 @@ while (my @row = $sth->fetchrow_array()) {
     print ('$' x $price);
     print "</td>
 <td>$phone</td><td>$website</td>
-<td><a href='editlocation.pl?lid=$lid'>Edit</a></td>
+<td><a href='edit-location.pl?lid=$lid'>Edit</a></td>
 </tr>";
 }
 

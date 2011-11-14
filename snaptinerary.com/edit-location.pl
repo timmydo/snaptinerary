@@ -30,14 +30,18 @@ if ($status < 100) {
     exit;
 }
 
+my @tags = get_tags($dbh, $lid);
+
 my $sth = $dbh->prepare("SELECT lat,long,name,address,type,price,phone,website FROM locations WHERE lid = ?");
 $sth->execute($lid);
 
 if (my @row = $sth->fetchrow_array()) {
     my ($lat,$long,$name,$address,$type,$price,$phone,$website) = @row;
-
+    $sth->finish;
     print_start($q, "Snaptinerary Database Page");
     print_top($uid);
+
+
 
     print "<div class='maincontent'>";
     print "<h1 class='center'>Edit Location</h1>";
@@ -89,9 +93,45 @@ if (my @row = $sth->fetchrow_array()) {
 </tr>
 
 
+
+
+<tr>
+<td>Add Tags (e.g.: brunch,cashonly,chinese,asian,dimsum)</td>
+<td><input type='text' name='tags' value=''/></td>
+</tr>
+
+
 </table>
 <button type='submit' name='submit'>Edit Location</button>
 </form>
+
+
+<table border='1'>
+
+<tr>
+<td>Tags</td>
+<td>";
+    
+
+
+    while (my $idx = shift @tags) {
+        my $tid = shift @tags;
+        my $tag = shift @tags;
+        #
+        print "
+<form name='edit-tag' method='post' action='/post/delete-tag.pl'>
+<a href='/edit-tag.pl?tid=$tid'>$tag</a>
+<input type='hidden' name='idx' value='$idx' />
+<input type='hidden' name='lid' value='$lid' />
+<button type='submit' name='submit' style='float: none; padding: 0 0 0 0; display: inline; font-size: 12px; height: 22px'>Delete</button>
+</form>
+";
+        
+    }
+
+print "</td>
+</tr>
+</table>
 ";
 
     print "</div>";
