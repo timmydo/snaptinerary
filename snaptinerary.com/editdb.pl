@@ -86,6 +86,11 @@ print "
 <td><input type='text' name='website' /></td>
 </tr>
 
+<tr>
+<td>Add Tags (e.g.: brunch,cashonly,chinese,asian,dimsum)</td>
+<td><input type='text' name='tags' value=''/></td>
+</tr>
+
 
 </table>
 <button type='submit' name='submit'>Add Location</button>
