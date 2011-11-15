@@ -98,7 +98,7 @@ print "</div>";
 
 print "<div class='maincontent'>";
 print "<h1 class='center'>DB Contents</h1>";
-my $sth = $dbh->prepare("SELECT lid,users.displayname,lat,long,name,address,type,price,phone,website FROM locations INNER JOIN users on users.uid = locations.uid");
+my $sth = $dbh->prepare("SELECT lid,users.displayname,lat,long,name,address,type,price,phone,website FROM locations INNER JOIN users on users.uid = locations.uid ORDER BY lid");
 $sth->execute();
 
 print "<table border='1'>";
