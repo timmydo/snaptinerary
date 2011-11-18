@@ -69,6 +69,7 @@ $sth->finish;
 
 
 $tags =~ s/\s+//g;
+$tags = lc($tags);
 my @newtags = split(/,/, $tags);
 while (my $newtag = shift @newtags) {
     my $tagid = add_tag($dbh, $newtag);
