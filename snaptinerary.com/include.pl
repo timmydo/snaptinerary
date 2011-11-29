@@ -163,6 +163,7 @@ print "
 
 if ($status >= 100) {
     print "<a href='/editdb.pl'>Edit DB</a>";
+    print "<a href='/random-place.pl'>Random Place</a>";
 }
 
 print "<a href='/post/logout.pl'>Logout</a>
