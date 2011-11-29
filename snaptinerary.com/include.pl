@@ -11,6 +11,9 @@ sub db_connect {
 sub check_session {
     my ($q, $dbh) = @_;
     my $sid = $q->cookie('sid');
+    if (!defined $sid) {
+        $sid = 'null';
+    }
     my $sth = $dbh->prepare("SELECT users.uid,displayname,users.status FROM sessions JOIN users ON users.uid = sessions.uid WHERE cookie = ?");
     $sth->execute($sid);
     
