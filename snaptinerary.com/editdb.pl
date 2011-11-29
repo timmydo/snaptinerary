@@ -14,14 +14,14 @@ my ($sid, $uid, $displayname, $status) = check_session($q, $dbh);
 if ($uid == -1) {
     $dbh->rollback;
     $dbh->disconnect;
-    $q->redirect(-uri => "/index.pl");
+    print $q->redirect(-uri => "/index.pl");
     exit;
 }
 
 if ($status < 100) {
     $dbh->rollback;
     $dbh->disconnect;
-    $q->redirect(-uri => "/index.pl");
+    print $q->redirect(-uri => "/index.pl");
     exit;
 }
 

@@ -7,6 +7,7 @@ use DBI;
 require "./include.pl";
 
 
+
 my $q = CGI->new;
 my $dbh = db_connect();
 my ($sid, $uid, $displayname, $status) = check_session($q, $dbh);
@@ -25,14 +26,14 @@ if ($type =~ /\d+/) {
 if ($uid == -1) {
     $dbh->rollback;
     $dbh->disconnect;
-    $q->redirect(-uri => "/index.pl");
+    print $q->redirect(-uri => "/index.pl");
     exit;
 }
 
 if ($status < 100) {
     $dbh->rollback;
     $dbh->disconnect;
-    $q->redirect(-uri => "/index.pl");
+    print $q->redirect(-uri => "/index.pl");
     exit;
 }
 
@@ -42,22 +43,9 @@ print_top($uid);
 print "<div class='maincontent'>";
 print "<ul>";
 
-if ("$type" eq '100') {
-    print "<li> Random lodging";
-} else {
-    print "<li> <a href='random-place.pl?type=100'>Random lodging</a>";
-}
-if ("$type" eq '200') {
-    print "<li> Random restaurant";
-} else {
-    print "<li> <a href='random-place.pl?type=200'>Random restaurant</a>";
-}
-if ("$type" eq '300') {
-    print "<li> Random activity";
-} else {
-    print "<li> <a href='random-place.pl?type=300'>Random activity</a>";
-}
-
+print "<li> <a href='random-place.pl?type=100'>Random lodging</a>";
+print "<li> <a href='random-place.pl?type=200'>Random restaurant</a>";
+print "<li> <a href='random-place.pl?type=300'>Random activity</a>";
 
 print "</ul>";
 
