@@ -75,7 +75,7 @@ while (my @row = $sth->fetchrow_array()) {
     print "Place: <a href='http://maps.google.com/maps?q=$lat,$long'>$name</a><br/> 
 <a href='http://maps.google.com/maps?q=$address'>$address</a><br/>Price: ";
     print ('$' x $price);
-    print "<br/>Phone: $phone<br/>Website:<a href='$website'>$website</a><br/>Tags: ";
+    print "<br/>Phone: $phone<br/>Website: <a href='$website'>$website</a><br/>Tags: ";
 
     my @tags = get_tags($dbh, $lid);
         while (my $idx = shift @tags) {
