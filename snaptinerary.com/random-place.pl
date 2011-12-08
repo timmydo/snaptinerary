@@ -13,14 +13,53 @@ my $dbh = db_connect();
 my ($sid, $uid, $displayname, $status) = check_session($q, $dbh);
 
 my $type = $q->param('type');
+my $lowprice = $q->param('lp');
+my $highprice = $q->param('hp');
+my $notags = $q->param('no');
+my $badtagstring = '';
 
 if (!defined $type) {
     $type = '200';
 }
 
-if ($type =~ /\d+/) {
-} else {
+if (!defined $notags) {
+    $notags = '';
+}
+
+if (!defined $lowprice) {
+    $lowprice = '0';
+}
+if (!defined $highprice) {
+    $highprice = '5';
+}
+
+
+if ($type !~ /^\d+$/) {
     $type = '200';
+}
+
+if ($lowprice !~ /^\d+$/) {
+    $lowprice = '0';
+}
+if ($highprice !~ /^\d+$/) {
+    $highprice = '4';
+}
+
+
+if ($notags =~ /^[a-z]+([,][a-z]+)*$/) {
+} else {
+    $notags = '';
+}
+
+my @badtagarray = split /,/, $notags;
+foreach (@badtagarray) {
+    $badtagstring .= '\'' . $_ . '\',';
+}
+
+$badtagstring = substr($badtagstring, 0, -1);
+
+if ($badtagstring eq '') {
+    $badtagstring = '\'notag\'';
 }
 
 if ($uid == -1) {
@@ -54,8 +93,13 @@ print "<div class='maincontent'>";
 print "";
 
 
-my $sth = $dbh->prepare("SELECT lid,lat,long,name,address,price,phone,website FROM locations WHERE type = ? ORDER BY random() LIMIT 1");
-$sth->execute($type);
+print "$lowprice,$highprice, badtags = $badtagstring\n";
+
+my $sth = $dbh->prepare("SELECT lid,lat,long,name,address,price,phone,website FROM locations WHERE type = ? AND price >= ? and price <= ?
+ AND lid NOT IN (SELECT lid FROM tagged INNER JOIN tags ON tags.tid = tagged.tagid WHERE tag IN ($badtagstring))
+ ORDER BY random() LIMIT 1");
+$sth->execute($type, $lowprice, $highprice);
+
 
 
 while (my @row = $sth->fetchrow_array()) {
