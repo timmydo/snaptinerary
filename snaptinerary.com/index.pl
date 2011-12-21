@@ -104,11 +104,13 @@ print "
 
 
 <div class='center'>
+
 <div class='inputwrap'>
-    <label for='location_input' id='location_label'>Destination</label>
-<input type='text' id='location_input' name='email'
+    <label for='location_input' id='location_label'><!--Destination--></label>
+<input type='text' id='location_input' name='location' value='New York City' disabled='disabled'
  onfocus=\"handleKey('location_label', 'location_input')\"/>
 </div>
+
 </div>
 
 <div class='center'>
