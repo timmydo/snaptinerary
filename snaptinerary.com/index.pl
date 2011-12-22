@@ -151,12 +151,13 @@ print "
 <input type='range' name='events' min='1' max='4' step='1' value='3' onchange=\"describeEvents('events_detail', this.value)\"/>
 </div>
 
+<!--
 <br/><br/>
 <div class='center'>
 <div id='schedule_detail'>Regular schedule</div>
 <input type='range' name='schedule' min='1' max='3' step='1' value='2' onchange=\"describeSchedule('schedule_detail', this.value)\"/>
 </div>
-
+-->
 <br/><br/>
 <button type='submit' name='submit'>Search</button>
 </form>
