@@ -71,34 +71,32 @@ my $sth = $dbh->prepare("SELECT lid,lat,long,name,address,price,phone,website FR
  ORDER BY random() LIMIT 1");
 $sth->execute($type, $lowprice, $highprice);
 
-print "$lowprice,$highprice, badtags = $badtagstring\n";
-
+#print "$lowprice,$highprice, badtags = $badtagstring\n";
+print "{\n";
 
 while (my @row = $sth->fetchrow_array()) {
     my ($lid,$lat,$long,$name,$address,$price,$phone,$website) = @row;
-    print "Place: <a href='http://maps.google.com/maps?q=$lat,$long'>$name</a><br/> 
-<a href='http://maps.google.com/maps?q=$address'>$address</a><br/>Price: ";
-    print ('$' x $price);
-    print "<br/>Phone: $phone<br/>Website: <a href='$website'>$website</a><br/>Tags: ";
-
+    print "\"name\": \"$name\",\n";
+    print "\"lat\": \"$lat\",\n";
+    print "\"long\": \"$long\",\n";
+    print "\"price\": \"$price\",\n";
+    print "\"phone\": \"$phone\",\n";
+    print "\"website\": \"$website\",\n";
+    print "\"tags\": [";
     my @tags = get_tags($dbh, $lid);
-        while (my $idx = shift @tags) {
+    while (my $idx = shift @tags) {
         my $tid = shift @tags;
         my $tag = shift @tags;
-        print "<a href='/edit-tag.pl?tid=$tid'>$tag</a> ";
+        print "{\"tid\": \"$tid\", \"tag\": \"$tag\"}";
+        if (@tags) {
+            print ", ";
         }
-
-
+    }
+    print "]\n";
 }
 
-
-
+print "}\n";
 
 $sth->finish;
-
-
-
-
-
 $dbh->rollback;
 $dbh->disconnect;
