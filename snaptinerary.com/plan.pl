@@ -12,27 +12,12 @@ my $dbh = db_connect();
 my ($sid, $uid, $displayname, $status) = check_session($q, $dbh);
 
 my $location = $q->param('location');
-my $startdate = $q->param('startdate');
-my $enddate = $q->param('enddate');
+my $numdays = $q->param('time');
 my $numpeople = $q->param('numpeople');
 my $lodging = $q->param('lodging');
 my $food = $q->param('food');
 my $events = $q->param('events');
 my $schedule = $q->param('schedule');
-
-
-if ($startdate =~ m{(\d\d)/(\d\d)/(\d\d)}) {
-} else {
-    print $q->redirect(-uri => "/index.pl");
-    exit;
-}
-
-if ($enddate =~ m{(\d\d)/(\d\d)/(\d\d)}) {
-} else {
-    print $q->redirect(-uri => "/index.pl");
-    exit;
-}
-
 
 
 print_start($q, "Snaptinerary");
@@ -62,7 +47,6 @@ refreshLocation(\'hotelarea\', 100, $lodging, $lodging);
 ";
 
 
-my $numdays = 2;
 if ($location eq '') {
     $location = 'New York City';
 }

@@ -87,12 +87,23 @@ function describePeople(id, value)
     document.getElementById(id).innerHTML=str;
 }
 
+function describeTime(id, value)
+{
+    str = "error";
+    switch (value) {
+        case "1": str = "1 day"; break;
+      default: str = value + " days"; break;
+
+    }
+    document.getElementById(id).innerHTML=str;
+}
+
 //]]></script>
 ';
 
 
 print "<div class='maincontent'>";
-print "<h1 class='center'>Plan your trip</h1>
+print "<h1 class='center'>Plan your trip to New York City</h1>
 <h5 class='center'>Millions of ideas--just one click away</h5>";
 
 
@@ -102,11 +113,11 @@ print "
 
 <form name='plan-form' class='formclass1' method='post' action='/plan.pl'>
 
-
+<!--
 <div class='center'>
 
 <div class='inputwrap'>
-    <label for='location_input' id='location_label'><!--Destination--></label>
+    <label for='location_input' id='location_label'></label>
 <input type='text' id='location_input' name='location' value='New York City' disabled='disabled'
  onfocus=\"handleKey('location_label', 'location_input')\"/>
 </div>
@@ -114,23 +125,20 @@ print "
 </div>
 
 <div class='center'>
-
 <div class='inputwrap'>
 <label for='startdate' id='date_label1'>Check-in</label>
 <input type='date' name='startdate' onfocus=\"handleKey('date_label1', 'startdate')\" />
 </div>
-
 <div class='inputwrap'>
 <label for='enddate' id='date_label2'>Check-out</label>
 <input type='date' name='enddate' onfocus=\"handleKey('date_label2', 'enddate')\" />
 </div>
-
 </div>
-
+-->
 
 <div class='center'>
-<div id='people_detail'>Just me</div>
-<input type='range' name='numpeople' min='1' max='8' step='1' value='1' onchange=\"describePeople('people_detail', this.value)\"/>
+<div id='time_detail'>2 days</div>
+<input type='range' name='time' min='1' max='4' step='1' value='2' onchange=\"describeTime('time_detail', this.value)\"/>
 </div>
 
 <br/><br/>
@@ -158,8 +166,10 @@ print "
 <input type='range' name='schedule' min='1' max='3' step='1' value='2' onchange=\"describeSchedule('schedule_detail', this.value)\"/>
 </div>
 -->
-<br/><br/>
-<button type='submit' name='submit'>Search</button>
+<br/><br/><br/>
+<div class='center'>
+<button type='submit' name='submit' style='margin-left: auto; margin-right: auto; width: 100px'>Search</button>
+</div>
 </form>
 ";
 
