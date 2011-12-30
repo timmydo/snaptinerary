@@ -32,11 +32,11 @@ if ($status < 100) {
 
 my @tags = get_tags($dbh, $lid);
 
-my $sth = $dbh->prepare("SELECT lat,long,name,address,type,price,phone,website FROM locations WHERE lid = ?");
+my $sth = $dbh->prepare("SELECT lat,long,name,address,type,price,phone,website,description FROM locations WHERE lid = ?");
 $sth->execute($lid);
 
 if (my @row = $sth->fetchrow_array()) {
-    my ($lat,$long,$name,$address,$type,$price,$phone,$website) = @row;
+    my ($lat,$long,$name,$address,$type,$price,$phone,$website,$description) = @row;
     $sth->finish;
     print_start($q, "Snaptinerary Database Page");
     print_top($uid);
@@ -90,6 +90,11 @@ if (my @row = $sth->fetchrow_array()) {
 <tr>
 <td>Website (optional)</td>
 <td><input type='text' name='website' value='$website'/></td>
+</tr>
+
+<tr>
+<td>Description (optional)</td>
+<td><input type='text' name='description' value='$description'/></td>
 </tr>
 
 
