@@ -20,6 +20,7 @@ my $lat = $q->param('lat');
 my $long = $q->param('long');
 my $phone = $q->param('phone');
 my $website = $q->param('website');
+my $description = $q->param('description');
 my $lid = $q->param('lid');
 my $tags = $q->param('tags');
 
@@ -39,7 +40,7 @@ if ($status < 100) {
 }
 
 if (!defined $name or !defined $address or !defined $type or !defined $price or !defined $lat or !defined $lat
-    or !defined $phone or !defined $website or !defined $lid
+    or !defined $phone or !defined $website or !defined $lid or !defined $description
     or ($lat eq '') or ($long eq '') or ($name eq '')) {
     print $q->header();
     print $q->start_html();
@@ -52,10 +53,11 @@ $address = encode_html($address);
 $name = encode_html($name);
 $phone = encode_html($phone);
 $website = encode_html($website);
+$description = encode_html($description);
 $tags = encode_html($tags);
 
-my $sth = $dbh->prepare('UPDATE locations SET lat=?,long=?,name=?,address=?,type=?,price=?,phone=?,website=? WHERE lid = ?');
-$sth->execute($lat, $long, $name, $address, $type, $price, $phone, $website, $lid);
+my $sth = $dbh->prepare('UPDATE locations SET lat=?,long=?,name=?,address=?,type=?,price=?,phone=?,website=?,description=? WHERE lid = ?');
+$sth->execute($lat, $long, $name, $address, $type, $price, $phone, $website, $description, $lid);
 $sth->finish;
 
 

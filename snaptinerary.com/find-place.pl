@@ -66,7 +66,7 @@ print $q->header(-type=>'text/html', -charset=>'utf-8');
 
 
 
-my $sth = $dbh->prepare("SELECT lid,lat,long,name,address,price,phone,website FROM locations WHERE type = ? AND price >= ? and price <= ?
+my $sth = $dbh->prepare("SELECT lid,lat,long,name,address,price,phone,website,description FROM locations WHERE type = ? AND price >= ? and price <= ?
  AND lid NOT IN (SELECT lid FROM tagged INNER JOIN tags ON tags.tid = tagged.tagid WHERE tag IN ($badtagstring))
  ORDER BY random() LIMIT 1");
 $sth->execute($type, $lowprice, $highprice);
@@ -75,13 +75,14 @@ $sth->execute($type, $lowprice, $highprice);
 print "{\n";
 
 while (my @row = $sth->fetchrow_array()) {
-    my ($lid,$lat,$long,$name,$address,$price,$phone,$website) = @row;
+    my ($lid,$lat,$long,$name,$address,$price,$phone,$website,$description) = @row;
     print "\"name\": \"$name\",\n";
     print "\"lat\": \"$lat\",\n";
     print "\"long\": \"$long\",\n";
     print "\"price\": \"$price\",\n";
     print "\"phone\": \"$phone\",\n";
     print "\"website\": \"$website\",\n";
+    print "\"description\": \"$description\",\n";
     print "\"tags\": [";
     my @tags = get_tags($dbh, $lid);
     while (my $idx = shift @tags) {

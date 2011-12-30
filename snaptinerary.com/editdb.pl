@@ -87,6 +87,11 @@ print "
 </tr>
 
 <tr>
+<td>Description (optional)</td>
+<td><input type='text' name='description' /></td>
+</tr>
+
+<tr>
 <td>Add Tags (e.g.: brunch,cashonly,chinese,asian,dimsum)</td>
 <td><input type='text' name='tags' value=''/></td>
 </tr>
@@ -103,17 +108,17 @@ print "</div>";
 
 print "<div class='maincontent'>";
 print "<h1 class='center'>DB Contents</h1>";
-my $sth = $dbh->prepare("SELECT lid,users.displayname,lat,long,name,address,type,price,phone,website FROM locations INNER JOIN users on users.uid = locations.uid ORDER BY lid");
+my $sth = $dbh->prepare("SELECT lid,users.displayname,lat,long,name,address,type,price,phone,website,description FROM locations INNER JOIN users on users.uid = locations.uid ORDER BY lid");
 $sth->execute();
 
 print "<table border='1'>";
 print "<thead>
 <th>Location ID</th><th>User</th><th>Latitude</th><th>Longitude</th><th>Name</th>
-<th>Address</th><th>Type</th><th>Price</th><th>Phone</th><th>Website</th><th>Options</th>
+<th>Address</th><th>Type</th><th>Price</th><th>Phone</th><th>Website</th><th>Description</th><th>Options</th>
 </thead>";
 print "<tbody>";
 while (my @row = $sth->fetchrow_array()) {
-    my ($lid,$displayname,$lat,$long,$name,$address,$type,$price,$phone,$website) = @row;
+    my ($lid,$displayname,$lat,$long,$name,$address,$type,$price,$phone,$website,$description) = @row;
     print "<tr>
 <td>$lid</td><td>$displayname</td><td>$lat</td><td>$long</td><td>$name</td>
 <td>$address</td><td>";
@@ -129,7 +134,7 @@ while (my @row = $sth->fetchrow_array()) {
     print "</td><td>";
     print ('$' x $price);
     print "</td>
-<td>$phone</td><td>$website</td>
+<td>$phone</td><td>$website</td><td>$description</td>
 <td><a href='edit-location.pl?lid=$lid'>Edit</a></td>
 </tr>";
 }
