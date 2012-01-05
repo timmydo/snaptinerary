@@ -84,7 +84,9 @@ sub print_logo {
 }
 
 sub print_navbar {
+    return;
     my ($uid) = @_;
+
     print "<div class='navbar'><ul>";
     print "<li><a href='/index.pl'>Start</a></li>";
 #    print "<li><a href='/features.pl'>Features</a></li>";
