@@ -13,6 +13,7 @@ my $dbh = db_connect();
 my ($sid, $uid, $displayname, $status) = check_session($q, $dbh);
 
 my $type = $q->param('type');
+my $city = $q->param('city');
 my $lowprice = $q->param('lp');
 my $highprice = $q->param('hp');
 my $notags = $q->param('no');
@@ -20,6 +21,10 @@ my $badtagstring = '';
 
 if (!defined $type) {
     $type = '200';
+}
+
+if (!defined $city) {
+    $city = '1';
 }
 
 if (!defined $notags) {
@@ -66,16 +71,16 @@ print $q->header(-type=>'text/html', -charset=>'utf-8');
 
 
 
-my $sth = $dbh->prepare("SELECT lid,lat,long,name,address,price,phone,website,description FROM locations WHERE type = ? AND price >= ? and price <= ?
+my $sth = $dbh->prepare("SELECT lid,lat,long,name,address,price,phone,website,description,cityid FROM locations WHERE type = ? AND cityid = ? AND price >= ? and price <= ?
  AND lid NOT IN (SELECT lid FROM tagged INNER JOIN tags ON tags.tid = tagged.tagid WHERE tag IN ($badtagstring))
  ORDER BY random() LIMIT 1");
-$sth->execute($type, $lowprice, $highprice);
+$sth->execute($type, $city, $lowprice, $highprice);
 
 #print "$lowprice,$highprice, badtags = $badtagstring\n";
 print "{\n";
 
 while (my @row = $sth->fetchrow_array()) {
-    my ($lid,$lat,$long,$name,$address,$price,$phone,$website,$description) = @row;
+    my ($lid,$lat,$long,$name,$address,$price,$phone,$website,$description,$cityid) = @row;
     print "\"name\": \"$name\",\n";
     print "\"lat\": \"$lat\",\n";
     print "\"long\": \"$long\",\n";
@@ -83,6 +88,7 @@ while (my @row = $sth->fetchrow_array()) {
     print "\"phone\": \"$phone\",\n";
     print "\"website\": \"$website\",\n";
     print "\"description\": \"$description\",\n";
+    print "\"cityid\": \"$cityid\",\n";
     print "\"tags\": [";
     my @tags = get_tags($dbh, $lid);
     while (my $idx = shift @tags) {

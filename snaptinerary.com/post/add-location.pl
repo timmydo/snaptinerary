@@ -22,6 +22,7 @@ my $phone = $q->param('phone');
 my $website = $q->param('website');
 my $description = $q->param('description');
 my $tags = $q->param('tags');
+my $city = $q->param('city');
 
 
 if ($uid == -1) {
@@ -40,7 +41,7 @@ if ($status < 100) {
 
 if (!defined $name or !defined $address or !defined $type or !defined $price or !defined $lat or !defined $lat
     or !defined $phone or !defined $website or !defined $tags or !defined $description
-    or ($lat eq '') or ($long eq '') or ($name eq '')) {
+    or ($lat eq '') or ($long eq '') or ($name eq '') or !defined $city) {
     print $q->header();
     print $q->start_html();
     print $q->h1("all fields required");
@@ -56,8 +57,8 @@ $description = encode_html($description);
 $tags = encode_html($tags);
 
 
-my $sth = $dbh->prepare('INSERT INTO locations(uid,lat,long,name,address,creation,type,price,phone,website,description) VALUES (?,?,?,?,?,current_timestamp,?,?,?,?,?)');
-$sth->execute($uid, $lat, $long, $name, $address, $type, $price, $phone, $website, $description);
+my $sth = $dbh->prepare('INSERT INTO locations(uid,lat,long,name,address,creation,type,price,phone,website,description,cityid) VALUES (?,?,?,?,?,current_timestamp,?,?,?,?,?,?)');
+$sth->execute($uid, $lat, $long, $name, $address, $type, $price, $phone, $website, $description,$city);
 $sth->finish;
 
 
