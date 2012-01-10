@@ -46,6 +46,15 @@ print "
 </tr>
 
 <tr>
+<td>City</td>
+<td><select name='city'>
+<option value='1'>NYC</option>
+<option value='2'>Washington DC</option>
+</select>
+</td>
+</tr>
+
+<tr>
 <td>Type</td>
 <td><select name='type'>
 <option value='100'>Lodging</option>
