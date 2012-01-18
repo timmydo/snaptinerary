@@ -103,7 +103,7 @@ function describeTime(id, value)
 
 
 print "<div class='maincontent'>";
-print "<h1 class='center'>Plan your trip to New York City</h1>
+print "<h1 class='center'>Plan your trip</h1>
 <h5 class='center'>Millions of ideas--just one click away</h5>";
 
 
@@ -135,6 +135,13 @@ print "
 </div>
 </div>
 -->
+
+<div class='center'>
+<select name='city'>
+<option value='1'>Itinerary for New York City</option>
+<!--<option value='2'>Washington DC</option>-->
+</select>
+</div><br/><br/>
 
 <div class='center'>
 <div id='time_detail'>2 days</div>
