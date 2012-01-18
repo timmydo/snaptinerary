@@ -18,6 +18,7 @@ my $lodging = $q->param('lodging');
 my $food = $q->param('food');
 my $events = $q->param('events');
 my $schedule = $q->param('schedule');
+my $city = $q->param('city');
 
 
 print_start($q, "Snaptinerary");
@@ -25,6 +26,7 @@ print_top($uid);
 print "<script type=\"text/javascript\">
 //<![CDATA[
 
+cityid = '$city';
 Array.prototype.removeItems = function(itemsToRemove) {
 
     if (!/Array/.test(itemsToRemove.constructor)) {
@@ -73,13 +75,13 @@ function refreshLocation(label, mytype, mylowprice, myhighprice, tagname) {
   var notags = sttags[tagname].join(',');
   mylabel.innerHTML = 'loading...';
   \$.getJSON(\"find-place.pl\", 
-            {type: mytype, lowprice: mylowprice, highprice: myhighprice, no: notags},
+            {type: mytype, lowprice: mylowprice, highprice: myhighprice, no: notags,city: cityid},
             function(data) {
               var taghtml = '';
               \$.each(data.tags, function(i, item) {
                                 taghtml += \" <a href='#' onclick=\\\"addTag('\"+ label + \"_no', '\"+ tagname +\"', '\"+item.tag+\"'); return false;\\\">\" + item.tag + \"</a>\";
                                 });
-              mylabel.innerHTML = data.name + taghtml;
+              mylabel.innerHTML = data.name + \"<br/>\" + data.description + \"<br/>\" + taghtml;
             });
 
 }
