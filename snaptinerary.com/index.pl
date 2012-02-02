@@ -145,7 +145,7 @@ print "
 
 <div class='center'>
 <div id='time_detail'>2 days</div>
-<input type='range' name='time' min='1' max='4' step='1' value='2' style='width: 0' onchange=\"describeTime('time_detail', this.value)\"/>
+<input type='range' name='time' min='1' max='4' step='1' value='2' onchange=\"describeTime('time_detail', this.value)\"/>
 </div>
 
 <br/><br/>
