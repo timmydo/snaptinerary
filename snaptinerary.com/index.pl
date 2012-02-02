@@ -56,7 +56,7 @@ function describeEvents(id, value)
     switch (value) {
         case "1": str = "Cheap sightseeing"; break;
         case "2": str = "Budget sightseeing"; break;
-        case "3": str = "Willing to pay for events"; break;
+        case "3": str = "Spend on events"; break;
         case "4": str = "Splurge on events"; break;
       default: break;
     }
@@ -138,14 +138,14 @@ print "
 
 <div class='center'>
 <select name='city'>
-<option value='1'>Itinerary for New York City</option>
+<option value='1'>New York City</option>
 <!--<option value='2'>Washington DC</option>-->
 </select>
 </div><br/><br/>
 
 <div class='center'>
 <div id='time_detail'>2 days</div>
-<input type='range' name='time' min='1' max='4' step='1' value='2' onchange=\"describeTime('time_detail', this.value)\"/>
+<input type='range' name='time' min='1' max='4' step='1' value='2' style='width: 0' onchange=\"describeTime('time_detail', this.value)\"/>
 </div>
 
 <br/><br/>
@@ -162,7 +162,7 @@ print "
 
 <br/><br/>
 <div class='center'>
-<div id='events_detail'>Willing to pay for events</div>
+<div id='events_detail'>Spend on events</div>
 <input type='range' name='events' min='1' max='4' step='1' value='3' onchange=\"describeEvents('events_detail', this.value)\"/>
 </div>
 
