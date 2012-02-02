@@ -80,7 +80,7 @@ return "
 
 
 sub print_logo {
-    print "<div class='snaptinerary'><img src='img/logo.jpg' alt='Snaptinerary'/></div>";
+    print "<div class='snaptinerary'><img src='img/logo2.png' alt='Snaptinerary'/></div>";
 }
 
 sub print_navbar {
