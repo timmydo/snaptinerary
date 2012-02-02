@@ -285,12 +285,13 @@ background-color: #fff;
 
 
 button {
-color: rgba(0, 0, 0, 0.63);
+color: rgba(255, 255, 255, 0.63);
 font-size: 17px;
 font-weight: bold;
 font-family: Arial,'Helvetica Neue',Helvetica,sans-serif;
 text-shadow: 0 1px 1px rgba(255, 255, 255, 0.37);
-background: #FF6103;
+//background: #FF6103;
+background: #8B2500;
 border: 1px solid #000000;
 -moz-border-radius: 6px;
 -webkit-border-radius: 6px;
