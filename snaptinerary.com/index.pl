@@ -103,7 +103,7 @@ function describeTime(id, value)
 
 
 print "<div class='maincontent'>";
-print "<h1 class='center'>Plan your trip</h1>
+print "<h1 class='center' style='font-size:26px'>Plan your trip</h1>
 <h5 class='center'>Millions of ideas--just one click away</h5>";
 
 
@@ -175,7 +175,7 @@ print "
 -->
 <br/><br/><br/>
 <div class='center'>
-<button type='submit' name='submit' style='margin-left: auto; margin-right: auto; width: 100px'>Search</button>
+<button type='submit' name='submit' style='margin-left: auto; margin-right: auto; width: 100%'>Search</button>
 </div>
 </form>
 ";
