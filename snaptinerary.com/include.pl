@@ -84,17 +84,13 @@ sub print_logo {
 }
 
 sub print_navbar {
-    return;
+#    return;
     my ($uid) = @_;
 
     print "<div class='navbar'><ul>";
-    print "<li><a href='/index.pl'>Start</a></li>";
-#    print "<li><a href='/features.pl'>Features</a></li>";
-    if (defined $uid and "$uid" ne "-1") {
-        print "<li><a href='/post/logout.pl'>Logout</a></li>";
-    } else {
-        print "<li><a href='/loginform.pl'>Login</a></li>";
-    }
+    print "<li><a href='/index.pl'>Snaptinerary</a></li>";
+    print "<li><a href='/find-event.pl?type=300'>Events</a></li>";
+    print "<li><a href='/find-event.pl?type=200'>Restaurants</a></li>";
     print "</ul></div><br />";
 }
 
@@ -105,6 +101,18 @@ sub print_top {
     print_navbar($uid);
     print "</div>";
 }
+
+sub cityName {
+    my ($city) = @_;
+    if ($city == '1') {
+        return "New York City";
+    }
+    if ($city == '2') {
+        return "Washington DC";
+    }
+    return "New York City";
+}
+
 
 sub print_start {
 # $html is accumulator for HTML string
