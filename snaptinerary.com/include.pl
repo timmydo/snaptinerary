@@ -162,7 +162,7 @@ sub print_footer {
     if ($uid == -1) {
 print "
 <div class='footerstyle1' style='font-size: 14px;'>
-<a href='/index.pl'>Start</a>
+<a href='/index.pl'>Snaptinerary</a>
 <a href='/loginform.pl'>Login</a>
 <br />
 <br />
