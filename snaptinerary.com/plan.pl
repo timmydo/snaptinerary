@@ -99,7 +99,7 @@ refreshLocation(\'hotelarea\', 100, $lodging, $lodging, 'hotel');
 
 
 if ($location eq '') {
-    $location = 'New York City';
+    $location = cityName($city);
 }
 print "<div class='maincontent'>";
 print "<h1 class='center'>Plan your trip to $location</h1>";
