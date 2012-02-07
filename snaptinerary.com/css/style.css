@@ -232,7 +232,8 @@ left: 0;
 .footerstyle1 {
     //background-color: #586aef;
 //    background-color: #0062b3;
-background-color: #FF6103;
+//background-color: #FF6103;
+background-color: #232323;
     right: 0px;
     left: 0px;
     color: #D7DEE6;
@@ -245,7 +246,7 @@ background-color: #FF6103;
     height: 75px;
 //    margin-left: auto;
 //    margin-right: auto;
-    opacity: .7;
+//    opacity: .7;
 
     border-radious: 5px;
     -moz-border-radius: 5px;
@@ -263,7 +264,9 @@ cursor: pointer;
 
 
 .footerstyle1 a:hover {
-color: #000000;
+//color: #000000;
+color: #FF6103;
+
 text-decoration: none;
 margin: 0 0 0 30px;
 cursor: pointer;
