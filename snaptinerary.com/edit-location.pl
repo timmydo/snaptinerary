@@ -94,7 +94,7 @@ if (my @row = $sth->fetchrow_array()) {
 
 <tr>
 <td>Description (optional)</td>
-<td><input type='text' name='description' value='$description'/></td>
+<td><textarea name='description' rows='10' cols='80'>$description</textarea></td>
 </tr>
 
 
