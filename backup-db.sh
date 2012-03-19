@@ -1,2 +1,4 @@
 #!/bin/bash
-pg_dump snaptinerary > db-`date +%s`.sql
+FILE=db-`date +%s`.sql
+pg_dump snaptinerary > $FILE
+scp $FILE timmy@10.120.162.22:/var/www/snaptinerary/backup/
