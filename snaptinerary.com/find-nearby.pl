@@ -15,6 +15,7 @@ my $city = $q->param('city');
 my $type = $q->param('type');
 my $lat = $q->param('lat');
 my $lon = $q->param('lon');
+my $pageno = $q->param('pageno');
 
 if (!defined $city or $city eq '') {
     $city = '1';
@@ -23,6 +24,18 @@ if (!defined $city or $city eq '') {
 if (!defined $type or $type eq '') {
     $type = '200';
 }
+
+if (!defined $pageno) {
+    $pageno = 1;
+}
+
+if ($pageno =~ /\d+/) {
+    $pageno = int($pageno);
+} else {
+    $pageno = 1;
+}
+
+
 if ($type =~ /[123]00/) {
     # good
 } else {
@@ -82,7 +95,7 @@ print "\n<table><tr><th>Distance</th><th>Name</th><th>Address</th><th>Price</th>
 
 while (my @row = $sth->fetchrow_array()) {
     my ($lid, $name, $address, $price, $desc, $distance) = @row;
-    print "<tr><td>$distance miles</td><td>$name</td><td>$address</td><td>";
+    print "<tr><td>$distance miles</td><td><a href='/place-info.pl?lid=$lid'>$name</a></td><td>$address</td><td>";
     print '$' x int($price);
     print "</td>";
     print "</tr>";
@@ -90,6 +103,12 @@ while (my @row = $sth->fetchrow_array()) {
 print "</table>";
 
 $sth->finish;
+
+if ($pageno > 1) {
+#fixme
+print "<a href='find-nearby?'>Previous fixme</a>";
+}
+
 
 print "</div>";
 
