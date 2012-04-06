@@ -70,7 +70,7 @@ var marker = new google.maps.Marker({
 
     if ($description ne '') {
 #    print "<div style='background-color: #e0e0e0;'>$description</div>";
-    print "<div>$description</div>";
+    print "<div>$description</div><br/><br/>";
     }
  
 
