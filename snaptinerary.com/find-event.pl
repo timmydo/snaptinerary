@@ -14,11 +14,11 @@ my ($sid, $uid, $displayname, $status) = check_session($q, $dbh);
 my $city = $q->param('city');
 my $type = $q->param('type');
 
-if (!defined $city or $city == '') {
+if (!defined $city or $city eq '') {
     $city = '1';
 }
 
-if (!defined $type or $type == '') {
+if (!defined $type or $type eq '') {
     $type = '200';
 }
 if ($type =~ /[123]00/) {
