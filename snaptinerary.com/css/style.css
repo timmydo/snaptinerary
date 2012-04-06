@@ -414,3 +414,11 @@ border: 1px solid #000000;
 	-moz-border-radius:2px; 
 	-webkit-border-radius:2px; 	
 }
+
+#map_canvas {
+    width:640px;
+    height:480px;
+    margin: 0;
+    padding: 0;
+
+}
