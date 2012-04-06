@@ -14,7 +14,6 @@ my $lid = $q->param('lid');
 my $displaywebsite = '';
 my @tags = get_tags($dbh, $lid);
 
-
 print_start($q, "Snaptinerary Place Information");
 print_top($uid);
 
@@ -23,17 +22,25 @@ $sth->execute($lid);
 
 if (my @row = $sth->fetchrow_array()) {
     my ($lat,$long,$name,$address,$type,$price,$phone,$website,$description) = @row;
+    my $nameescaped = encode_entities($name, '"&<>\'');
 
     print "<script type='text/javascript'
       src='http://maps.googleapis.com/maps/api/js?key=AIzaSyDDILpxDDz6m3lfL6eAtocIPH90B2LXpFU&sensor=false'></script>";
     print "<script type='text/javascript'>//<![CDATA[
 \$(document).ready(function() {
+var myLatlng = new google.maps.LatLng($lat, $long);
+
 var myOptions = {
-  center: new google.maps.LatLng($lat, $long),
-  zoom: 8,
+  center: myLatlng,
+  zoom: 16,
   mapTypeId: google.maps.MapTypeId.ROADMAP
 };
 var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+
+var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title:'$nameescaped'});
 });
 
 //]]></script>
@@ -59,7 +66,7 @@ var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
         #
         print "$tag ";        
     }
-    print "</div>";
+    print "</div><br/><br/>";
 
     if ($description ne '') {
 #    print "<div style='background-color: #e0e0e0;'>$description</div>";
@@ -67,7 +74,7 @@ var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
     }
  
 
-    print "<div id='map_canvas' style='width: 640; height: 480'></div>";
+    print "<div id='map_canvas' style='width: 640; height: 480'>map</div>";
 
     print "</div>";
 
