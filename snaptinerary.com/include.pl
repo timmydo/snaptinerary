@@ -92,6 +92,7 @@ sub print_navbar {
     print "<li><a href='/find-event.pl?type=300'>Events</a></li>";
     print "<li><a href='/find-event.pl?type=200'>Restaurants</a></li>";
     print "<li><a href='/find-event.pl?type=100'>Hotels</a></li>";
+    print "<li><a href='/find-nearby.pl?type=200'>Nearby</a></li>";
     print "</ul></div><br />";
 }
 
