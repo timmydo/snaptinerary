@@ -51,7 +51,7 @@ var map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 
     print "<h2><a href='$website'>$displaywebsite</a></h2>";
 #AIzaSyDDILpxDDz6m3lfL6eAtocIPH90B2LXpFU
-    print "<h3><a href='http://maps.google.com/q=$address'>$address</a></h2>";
+    print "<h3>$address</h2>";
     print "<div>Tags: ";
     while (my $idx = shift @tags) {
         my $tid = shift @tags;
