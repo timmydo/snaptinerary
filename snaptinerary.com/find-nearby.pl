@@ -17,6 +17,14 @@ my $lat = $q->param('lat');
 my $lon = $q->param('lon');
 my $pageno = $q->param('pageno');
 
+if (!defined $lat) {
+    $lat = '';
+}
+if (!defined $lon) {
+    $lon = '';
+}
+
+
 if (!defined $city or $city eq '') {
     $city = '1';
 }
