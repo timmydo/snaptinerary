@@ -192,6 +192,18 @@ Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
 
 }
 
+
+sub decode_html {
+    my ($s) = @_;
+    #$s = decode_entities($s);
+    $s =~ s/&lt;/</g;
+    $s =~ s/&gt;/>/g;
+    $s =~ s/&quot;/"/g;
+    $s =~ s{\r}{<br/>}g;
+    return $s;
+}
+
+
 sub encode_html {
     my ($s) = @_;
     $s = encode_entities($s, '"&<>');

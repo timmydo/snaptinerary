@@ -99,7 +99,8 @@ getBingMap();
 
     if ($description ne '') {
 #    print "<div style='background-color: #e0e0e0;'>$description</div>";
-    print "<div>$description</div><br/><br/>";
+        my $desc = decode_html($description);
+    print "<div>$desc</div><br/><br/>";
     }
  
 
