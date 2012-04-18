@@ -81,6 +81,7 @@ print "{\n";
 
 while (my @row = $sth->fetchrow_array()) {
     my ($lid,$lat,$long,$name,$address,$price,$phone,$website,$description,$cityid) = @row;
+    print "\"lid\": \"$lid\",\n";
     print "\"name\": \"$name\",\n";
     print "\"lat\": \"$lat\",\n";
     print "\"long\": \"$long\",\n";
