@@ -129,7 +129,7 @@ print "<tbody>";
 while (my @row = $sth->fetchrow_array()) {
     my ($lid,$displayname,$lat,$long,$name,$address,$type,$price,$phone,$website,$description) = @row;
     print "<tr>
-<td>$lid</td><td>$displayname</td><td>$lat</td><td>$long</td><td>$name</td>
+<td>$lid</td><td>$displayname</td><td>$lat</td><td>$long</td><td><a href='/place-info.pl?lid=$lid'>$name</a></td>
 <td>$address</td><td>";
     if ("$type" eq "100") {
         print "Lodging";
