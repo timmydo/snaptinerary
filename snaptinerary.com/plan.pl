@@ -81,7 +81,7 @@ function refreshLocation(label, mytype, mylowprice, myhighprice, tagname) {
               \$.each(data.tags, function(i, item) {
                                 taghtml += \" <a href='#' onclick=\\\"addTag('\"+ label + \"_no', '\"+ tagname +\"', '\"+item.tag+\"'); return false;\\\">\" + item.tag + \"</a>\";
                                 });
-              mylabel.innerHTML = data.name + \"<br/>\" + data.description + \"<br/>\" + taghtml;
+              mylabel.innerHTML = \"<a href='/place-info.pl?lid=\" + data.lid + \"'>\" + data.name + \"</a><br/>\" + data.description + \"<br/>\" + taghtml;
             });
 
 }
