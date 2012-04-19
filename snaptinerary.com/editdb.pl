@@ -143,7 +143,17 @@ while (my @row = $sth->fetchrow_array()) {
     print "</td><td>";
     print ('$' x $price);
     print "</td>
-<td>$phone</td><td>$website</td><td>$description</td>
+<td>$phone</td><td>$website</td><td>";
+
+    my $desclen = length($description);
+    if ($desclen < 10) {
+        print "<b>MISSING</b>";
+    } else {
+        print "($desclen characters)";
+    }
+
+
+    print "</td>
 <td><a href='edit-location.pl?lid=$lid'>Edit</a></td>
 </tr>";
 }
