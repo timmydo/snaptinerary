@@ -95,7 +95,7 @@ function displayPinDetails(item) {
 function addPins() {
   
   jQuery.each(pushpins, function(index, item) {
-      var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(item.lat, item.long), {text: item.name, typeName: 'pushpinStyle'});
+      var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(item.lat, item.long), {text: item.name.replace('&amp;','&'), typeName: 'pushpinStyle'});
       Microsoft.Maps.Events.addHandler(pin, 'click', function(e) {displayPinDetails(item)});
       bingmap.entities.push(pin);
     });
