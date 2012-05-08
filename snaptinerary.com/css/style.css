@@ -422,3 +422,20 @@ border: 1px solid #000000;
     padding: 0;
 
 }
+
+.pushpinStyle div {
+    color: black !important;
+    left: 5px;
+    text-shadow: 1px 0px white, -1px 0px white, 0px -1px white, 0px 1px white;
+    font: 12px arial,sans-serif;
+    overflow: visible;
+    white-space:nowrap;
+}
+
+.pushpinStyle {
+    overflow: visible !important; 
+}
+
+.pushpinStyle img {
+//    display:none;
+}
