@@ -32,97 +32,99 @@ my $location = cityName($city);
 
 print_start($q, "Snaptinerary");
 print_top($uid);
-print "<script type=\"text/javascript\">
-//<![CDATA[
 
-cityid = '$city';
-Array.prototype.removeItems = function(itemsToRemove) {
+print "<script type='text/javascript' src='http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0'></script>";
 
-    if (!/Array/.test(itemsToRemove.constructor)) {
-        itemsToRemove = [ itemsToRemove ];
+
+    print "<script type='text/javascript'>//<![CDATA[
+
+var bingmap = null;
+
+var pushpins = [";
+
+
+# output all the restaurant stuff
+
+my $sth = $dbh->prepare("SELECT lid,lat,long,name,address,price,phone,website FROM locations WHERE type = ? AND cityid = ?");
+$sth->execute($type, $city);
+while (my @row = $sth->fetchrow_array()) {
+    my ($lid,$lat,$long,$name,$address,$price,$phone,$website) = @row;
+    my $displaywebsite = $website;
+    if ($website !~ /^http/) {
+        $website = 'http://' . $website;
     }
+    $displaywebsite =~ s{http[s]?://}{}g;
+    my $pricestring = '$' x int($price);
 
-    var j;
-    for (var i = 0; i < itemsToRemove.length; i++) {
-        j = 0;
-        while (j < this.length) {
-            if (this[j] == itemsToRemove[i]) {
-                this.splice(j, 1);
-            } else {
-                j++;
-            }
-        }
-    }
+    print "{";
+    print "\"lid\": \"$lid\",\n";
+    print "\"name\": \"$name\",\n";
+    print "\"lat\": \"$lat\",\n";
+    print "\"long\": \"$long\",\n";
+    print "\"price\": \"$pricestring\",\n";
+    print "\"phone\": \"$phone\",\n";
+    print "\"address\": \"$address\",\n";
+    print "\"website\": \"$website\",\n";
+    print "\"displaywebsite\": \"$displaywebsite\",\n";
+    print "},";
+}
+$sth->finish;
+print "];";
+
+
+print "
+function getBingMap() {
+      // fixme hardcoded cityid coordinates
+       var bingpos = new Microsoft.Maps.Location(40.7697, -73.9735); 
+
+        bingmap = new Microsoft.Maps.Map(document.getElementById('myBingMap'), {credentials: 'AjJyM22LNY_p9azio12YJAxnIL2wg85psHglwhqucak5rMAvQkyKdu-10KA1NGpY', zoom: 12, center: bingpos});
+        
 }
 
+function displayPinDetails(item) {
+\$('#locationDetails').html('<h1>' 
++ '<a href=\"/place-info.pl?lid='+ item.lid + '\">' + item.name + '</a> (' + item.price + ') </h1>'
++ '<h2>'+ item.phone + '</h2>'
++ '<h2><a href=\"' + item.website + '\">'+ item.displaywebsite + '</a></h2>'
++ '<h3>' + item.address + '</h3>'
+);
 
-function refreshTagListing(label, location, tag) {
-  var mylabel = document.getElementById(label);
-  var taghtml = '';
 
-  \$.each(sttags[location], function(i, item) {
-    taghtml += \" <a href='#' onclick=\\\"removeTag('\"+ label + \"', '\"+ location +\"', '\" + item + \"'); return false;\\\">\" + item + \"</a>\";
-  });
-
-  mylabel.innerHTML = taghtml;
 }
 
-function addTag(label, location, tag) {
-  sttags[location].removeItems([tag]);
-  sttags[location].push(tag);
-  refreshTagListing(label, location, tag);
+function addPins() {
+  
+  jQuery.each(pushpins, function(index, item) {
+      var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(item.lat, item.long), {text: item.name, typeName: 'pushpinStyle'});
+      Microsoft.Maps.Events.addHandler(pin, 'click', function(e) {displayPinDetails(item)});
+      bingmap.entities.push(pin);
+    });
 }
-
-function removeTag(label, location, tag) {
-  sttags[location].removeItems([tag]);
-  refreshTagListing(label, location, tag);
-}
-
-
-function refreshLocation(label, mytype, mylowprice, myhighprice, tagname) {
-  var mylabel = document.getElementById(label);
-  var notags = sttags[tagname].join(',');
-  mylabel.innerHTML = 'loading...';
-  \$.getJSON(\"find-place.pl\", 
-            {type: mytype, lowprice: mylowprice, highprice: myhighprice, no: notags,city: cityid},
-            function(data) {
-              var taghtml = '';
-              \$.each(data.tags, function(i, item) {
-                                taghtml += \" <a href='#' onclick=\\\"addTag('\"+ label + \"_no', '\"+ tagname +\"', '\"+item.tag+\"'); return false;\\\">\" + item.tag + \"</a>\";
-                                });
-              mylabel.innerHTML = \"<a href='/place-info.pl?lid=\" + data.lid + \"'>\" + data.name + \"</a><br/>\" + data.description + \"<br/>\" + taghtml;
-            });
-
+      
+function setMapStyle() {
+        //Microsoft.Maps.MapTypeId.auto: automatic, Microsoft.Maps.MapTypeId.road: road, Microsoft.Maps.MapTypeId.aerial: aerial, Microsoft.Maps.MapTypeId.birdseye: birdeye  
+        bingmap.setView({mapTypeId : Microsoft.Maps.MapTypeId.road});
 }
 
 
 \$(document).ready(function() {
-sttags = {};
+getBingMap();
+addPins();
 });
-
 //]]></script>
+
 ";
 
 
-print "<div class='maincontent'>";
-print "<h1 class='center'>Plan your trip to $location</h1>";
-print "<span id='place'>food area</span> (<a href='#' onclick=\"refreshLocation('place', $type, 0, 4, 'place_tags'); return false;\">Change</a>)";
-print " (None with the tags: <span id='place_no'></span>)";
-print "<br/><br/>";
 
+
+print "<div class='maincontent' style='height: 500px;'>";
+
+print "<div id='myBingMap' style='position:relative; width:100%; height:100%;'>bing map</div>";
 
 print "</div>";
 
-
-print "<script type='text/javascript'>
-//<![CDATA[
-\$(document).ready(function() {
-
-sttags['place_tags'] = [];
-refreshLocation('place', $type, 0, 4, 'place_tags');
-});
-//]]></script>
-";
+print "<div class='maincontent' id='locationDetails'></div>";
 
 
 

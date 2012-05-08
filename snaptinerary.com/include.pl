@@ -151,7 +151,7 @@ sub print_start {
  
 //]]></script> 
 <script type='text/javascript' src='http://apis.google.com/js/plusone.js'></script>
-</head>";
+</head><body>";
 
 }
 
@@ -168,7 +168,7 @@ print "
 <a href='/loginform.pl'>Login</a>
 <br />
 <br />
-Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
+Copyright&copy; 2011&ndash;2012 Snaptinerary. All Rights Reserved.
 </div>
 ";
     } else {
@@ -184,7 +184,7 @@ if ($status >= 100) {
 print "<a href='/post/logout.pl'>Logout</a>
 <br />
 <br />
-Copyright&copy; 2011 Snaptinerary. All Rights Reserved.
+Copyright&copy; 2011&ndash;2012 Snaptinerary. All Rights Reserved.
 </div>
 ";
     }
