@@ -70,10 +70,16 @@ if ($badtagstring eq '') {
 print $q->header(-type=>'text/html', -charset=>'utf-8');
 
 
-
-my $sth = $dbh->prepare("SELECT lid,lat,long,name,address,price,phone,website,description,cityid FROM locations WHERE type = ? AND cityid = ? AND price >= ? and price <= ?
+my $query = "SELECT lid,lat,long,name,address,price,phone,website,description,cityid FROM locations WHERE type = ? AND cityid = ? AND price >= ? and price <= ?
  AND lid NOT IN (SELECT lid FROM tagged INNER JOIN tags ON tags.tid = tagged.tagid WHERE tag IN ($badtagstring))
- ORDER BY random() LIMIT 1");
+ ORDER BY random() LIMIT 1";
+
+# allow type=0 to query all places
+if ($type eq '0') {
+    $query =~ s/type =/type !=/;
+}
+
+my $sth = $dbh->prepare($query);
 $sth->execute($type, $city, $lowprice, $highprice);
 
 #print "$lowprice,$highprice, badtags = $badtagstring\n";

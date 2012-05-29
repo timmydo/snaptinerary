@@ -21,7 +21,7 @@ if (!defined $city or $city eq '') {
 if (!defined $type or $type eq '') {
     $type = '200';
 }
-if ($type =~ /[123]00/) {
+if ($type =~ /\d+/) {
     # good
 } else {
     $type = '200';
@@ -44,8 +44,17 @@ var pushpins = [";
 
 
 # output all the restaurant stuff
+my $query = "SELECT lid,lat,long,name,address,price,phone,website FROM locations WHERE type = ? AND cityid = ?";
 
-my $sth = $dbh->prepare("SELECT lid,lat,long,name,address,price,phone,website FROM locations WHERE type = ? AND cityid = ?");
+# allow type=0 to query all places
+if ($type eq '0') {
+    $query =~ s/type =/type !=/;
+}
+
+my $sth = $dbh->prepare($query);
+
+
+
 $sth->execute($type, $city);
 while (my @row = $sth->fetchrow_array()) {
     my ($lid,$lat,$long,$name,$address,$price,$phone,$website) = @row;
@@ -107,9 +116,22 @@ function setMapStyle() {
 }
 
 
+function getMyLocation() {
+if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function (position) {
+            var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude), {text: 'Me', typeName: 'pushpinStyleMe'});
+            bingmap.entities.push(pin);
+	}, 
+	function (error) {}
+        );
+}
+}
+
+
 \$(document).ready(function() {
 getBingMap();
 addPins();
+getMyLocation();
 });
 //]]></script>
 

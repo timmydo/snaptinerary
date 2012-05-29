@@ -439,3 +439,22 @@ border: 1px solid #000000;
 .pushpinStyle img {
 //    display:none;
 }
+
+
+
+.pushpinStyleMe div {
+    color: cyan !important;
+    left: 5px;
+    //text-shadow: 1px 0px white, -1px 0px white, 0px -1px white, 0px 1px white;
+    font: 20px arial,sans-serif;
+    overflow: visible;
+    white-space:nowrap;
+}
+
+.pushpinStyleMe {
+    overflow: visible !important; 
+}
+
+.pushpinStyleMe img {
+//    display:none;
+}
