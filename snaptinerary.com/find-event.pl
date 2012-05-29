@@ -83,10 +83,8 @@ print "];";
 
 print "
 function getBingMap() {
-      // fixme hardcoded cityid coordinates
-       var bingpos = new Microsoft.Maps.Location(40.7697, -73.9735); 
 
-        bingmap = new Microsoft.Maps.Map(document.getElementById('myBingMap'), {credentials: 'AjJyM22LNY_p9azio12YJAxnIL2wg85psHglwhqucak5rMAvQkyKdu-10KA1NGpY', zoom: 12, center: bingpos});
+        bingmap = new Microsoft.Maps.Map(document.getElementById('myBingMap'), {credentials: 'AjJyM22LNY_p9azio12YJAxnIL2wg85psHglwhqucak5rMAvQkyKdu-10KA1NGpY', zoom: 16});
         
 }
 
@@ -119,10 +117,21 @@ function setMapStyle() {
 function getMyLocation() {
 if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function (position) {
-            var pin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude), {text: 'Me', typeName: 'pushpinStyleMe'});
+            var myloc = new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude);
+            var pin = new Microsoft.Maps.Pushpin(myloc, {text: 'Me', typeName: 'pushpinStyleMe'});
             bingmap.entities.push(pin);
+            var options = bingmap.getOptions();
+            options.center = myloc;
+            bingmap.setView(options);
 	}, 
-	function (error) {}
+	function (error) {
+          // fixme hardcoded cityid coordinates
+          var bingpos = new Microsoft.Maps.Location(40.7697, -73.9735); 
+          var options = bingmap.getOptions();
+          options.center = bingpos;
+          bingmap.setView(options);
+
+          }
         );
 }
 }
