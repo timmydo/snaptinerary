@@ -44,7 +44,7 @@ var pushpins = [";
 
 
 # output all the restaurant stuff
-my $query = "SELECT lid,lat,long,name,address,price,phone,website FROM locations WHERE type = ? AND cityid = ? ORDER BY price ASC";
+my $query = "SELECT lid,lat,long,name,address,price,phone,website FROM locations WHERE type = ? AND cityid = ? ORDER BY price ASC, name";
 
 # allow type=0 to query all places
 if ($type eq '0') {
