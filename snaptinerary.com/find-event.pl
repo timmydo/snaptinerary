@@ -134,19 +134,18 @@ function setMapCenter(myloc) {
     bingmap.setView(options);
 }
 
+mylocation = new Microsoft.Maps.Location(40.7697, -73.9735);
 
 function getMyLocation() {
+setMapCenter(mylocation);
 if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function (position) {
-            var myloc = new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude);
-            var pin = new Microsoft.Maps.Pushpin(myloc, {text: 'Me', typeName: 'pushpinStyleMe'});
+            mylocation = new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude);
+            var pin = new Microsoft.Maps.Pushpin(mylocation, {text: 'Me', typeName: 'pushpinStyleMe'});
             bingmap.entities.push(pin);
-            setMapCenter(myloc);
 	}, 
 	function (error) {
           // fixme hardcoded cityid coordinates
-          var bingpos = new Microsoft.Maps.Location(40.7697, -73.9735); 
-          setMapCenter(bingpos);
 
           }
         );
@@ -168,7 +167,9 @@ getMyLocation();
 
 $sth = $dbh->prepare("SELECT lat,long,name FROM views WHERE cityid = ? ORDER BY name");
 $sth->execute($city);
-print "<div class='maincontent' id='viewList'><ul>";
+print "<div class='maincontent' id='viewList'>";
+print "<h3><a href='#' onclick='setMapCenter(mylocation); return false;'>My Location</a></h3>";
+print "<ul>";
 while (my @row = $sth->fetchrow_array()) {
     my ($lat,$long,$name) = @row;
     print "<li><a href='#' onclick='setMapCenterLatLong($lat,$long);return false;'>$name</a></li>";
