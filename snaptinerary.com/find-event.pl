@@ -44,7 +44,7 @@ var pushpins = [";
 
 
 # output all the restaurant stuff
-my $query = "SELECT lid,lat,long,name,address,price,phone,website FROM locations WHERE type = ? AND cityid = ?";
+my $query = "SELECT lid,lat,long,name,address,price,phone,website FROM locations WHERE type = ? AND cityid = ? ORDER BY price ASC";
 
 # allow type=0 to query all places
 if ($type eq '0') {
@@ -53,7 +53,7 @@ if ($type eq '0') {
 
 my $sth = $dbh->prepare($query);
 
-
+my $locationList = '';
 
 $sth->execute($type, $city);
 while (my @row = $sth->fetchrow_array()) {
@@ -76,6 +76,9 @@ while (my @row = $sth->fetchrow_array()) {
     print "\"website\": \"$website\",\n";
     print "\"displaywebsite\": \"$displaywebsite\",\n";
     print "},";
+
+    $locationList .= "<li><a href='#' onclick='setMapCenterLatLong($lat,$long); displayPinDetailsById($lid); return false;'>$name</a> ($pricestring)</li>";
+
 }
 $sth->finish;
 print "];";
@@ -99,6 +102,13 @@ function displayPinDetails(item) {
 
 }
 
+function displayPinDetailsById(id) {
+  jQuery.each(pushpins, function(index, item) {
+      if (item.lid == id) displayPinDetails(item);
+    });
+
+}
+
 function addPins() {
   
   jQuery.each(pushpins, function(index, item) {
@@ -114,22 +124,29 @@ function setMapStyle() {
 }
 
 
+function setMapCenterLatLong(lat, long) {
+    setMapCenter(new Microsoft.Maps.Location(lat, long));
+}
+
+function setMapCenter(myloc) {
+    var options = bingmap.getOptions();
+    options.center = myloc;
+    bingmap.setView(options);
+}
+
+
 function getMyLocation() {
 if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function (position) {
             var myloc = new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude);
             var pin = new Microsoft.Maps.Pushpin(myloc, {text: 'Me', typeName: 'pushpinStyleMe'});
             bingmap.entities.push(pin);
-            var options = bingmap.getOptions();
-            options.center = myloc;
-            bingmap.setView(options);
+            setMapCenter(myloc);
 	}, 
 	function (error) {
           // fixme hardcoded cityid coordinates
           var bingpos = new Microsoft.Maps.Location(40.7697, -73.9735); 
-          var options = bingmap.getOptions();
-          options.center = bingpos;
-          bingmap.setView(options);
+          setMapCenter(bingpos);
 
           }
         );
@@ -147,7 +164,22 @@ getMyLocation();
 ";
 
 
+# the view table
 
+$sth = $dbh->prepare("SELECT lat,long,name FROM views WHERE cityid = ?");
+$sth->execute($city);
+print "<div class='maincontent' id='viewList'><ul>";
+while (my @row = $sth->fetchrow_array()) {
+    my ($lat,$long,$name) = @row;
+    print "<li><a href='#' onclick='setMapCenterLatLong($lat,$long);return false;'>$name</a></li>";
+}
+$sth->finish;
+
+print "</ul></div>";
+
+
+
+# the map
 
 print "<div class='maincontent' style='height: 500px;'>";
 
@@ -155,7 +187,13 @@ print "<div id='myBingMap' style='position:relative; width:100%; height:100%;'>b
 
 print "</div>";
 
+# the location detail pane
+
 print "<div class='maincontent' id='locationDetails'></div>";
+
+# the location list pane
+
+print "<div class='maincontent' id='locationList'><ul>$locationList</ul></div>";
 
 
 

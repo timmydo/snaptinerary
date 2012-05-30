@@ -29,7 +29,7 @@ print_start($q, "Snaptinerary Database Page");
 print_top($uid);
 
 print "<div class='maincontent'>";
-print "<h1 class='center'>Edit DB</h1>";
+print "<h1 class='center'>Add Location</h1>";
 
 print "
 <form name='add-location' class='formclass1' method='post' action='/post/add-location.pl'>
@@ -115,8 +115,51 @@ print "</div>";
 
 
 
+
 print "<div class='maincontent'>";
-print "<h1 class='center'>DB Contents</h1>";
+print "<h1 class='center'>Add Map View</h1>";
+
+print "
+<form name='add-view' class='formclass1' method='post' action='/post/add-view.pl'>
+
+<table border='1'>
+<tr>
+<td>Name</td>
+<td><input type='text' name='name' /></td>
+</tr>
+
+<tr>
+<td>City</td>
+<td><select name='city'>
+<option value='1'>NYC</option>
+<option value='2'>Washington DC</option>
+</select>
+</td>
+</tr>
+
+
+<tr>
+<td>Latitude</td>
+<td><input type='text' name='lat' /></td>
+</tr>
+
+<tr>
+<td>Longitude</td>
+<td><input type='text' name='long' /></td>
+</tr>
+
+</table>
+<button type='submit' name='submit'>Add View</button>
+</form>
+";
+
+print "</div>";
+
+
+
+
+print "<div class='maincontent'>";
+print "<h1 class='center'>Location DB</h1>";
 my $sth = $dbh->prepare("SELECT lid,users.displayname,lat,long,name,address,type,price,phone,website,description FROM locations INNER JOIN users on users.uid = locations.uid ORDER BY lid");
 $sth->execute();
 
@@ -155,6 +198,29 @@ while (my @row = $sth->fetchrow_array()) {
 
     print "</td>
 <td><a href='edit-location.pl?lid=$lid'>Edit</a></td>
+</tr>";
+}
+
+print "</tbody></table>";
+print "</div>";
+
+
+
+print "<div class='maincontent'>";
+print "<h1 class='center'>View DB</h1>";
+$sth = $dbh->prepare("SELECT vid,lat,long,name,cityid FROM views ORDER BY vid");
+$sth->execute();
+
+print "<table border='1'>";
+print "<thead>
+<th>View ID</th><th>Latitude</th><th>Longitude</th><th>Name</th><th>Options</th>
+</thead>";
+print "<tbody>";
+while (my @row = $sth->fetchrow_array()) {
+    my ($vid,$lat,$long,$name,$cityid) = @row;
+    print "<tr>
+<td>$vid</td><td>$lat</td><td>$long</td><td><a href='/view-info.pl?lid=$vid'>$name</a></td>
+<td><a href='edit-view.pl?vid=$vid'>Edit</a></td>
 </tr>";
 }
 
