@@ -423,6 +423,36 @@ border: 1px solid #000000;
 
 }
 
+#viewList ul {
+    width: 100%;
+    overflow: auto;
+}
+
+#viewList ul {
+    width: 100%;
+}
+
+#viewList li {
+    width: 25%;
+    float: left;
+    display: block;
+}
+
+#locationList ul {
+    width: 100%;
+    overflow: auto;
+}
+
+#locationList ul {
+    width: 100%;
+}
+
+#locationList li {
+    width: 25%;
+    float: left;
+    display: block;
+}
+
 .pushpinStyle div {
     color: black !important;
     left: 5px;
