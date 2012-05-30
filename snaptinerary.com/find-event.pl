@@ -166,7 +166,7 @@ getMyLocation();
 
 # the view table
 
-$sth = $dbh->prepare("SELECT lat,long,name FROM views WHERE cityid = ?");
+$sth = $dbh->prepare("SELECT lat,long,name FROM views WHERE cityid = ? ORDER BY name");
 $sth->execute($city);
 print "<div class='maincontent' id='viewList'><ul>";
 while (my @row = $sth->fetchrow_array()) {
